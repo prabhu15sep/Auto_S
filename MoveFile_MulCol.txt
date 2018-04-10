@@ -1,0 +1,35 @@
+import pandas as pd
+import datetime
+import importlib
+import numpy as np
+import os
+
+def list_to_path(list_name, base_dir="D:\\ppadayac\\PraChin\\P"):    #"D:\\ppadayac\\PraChin\\db"  "/Volumes/2/PyD/"
+    """Return CSV file p  ath given ticker symbol."""
+    return os.path.join(base_dir, "{}.csv".format(str(list_name)))
+    
+def get_list(list_name,ind_key):
+    df = pd.read_csv(list_to_path(list_name),
+            parse_dates=True, index_col=ind_key) # Extract Symbol,EQ series and Stock Code
+    return df
+
+
+def test_run():
+    ######Reading Data###################
+    df_nse50 = get_list('Attachments_withCommas', 'Opportunity Number')                   #Extract list of Top Nse50 Stcoks
+    
+    list_nse50 = df_nse50.values.tolist()                              #Array of Stcok symbols
+    
+    pathA = "D:\\ppadayac\\PraChin\\A"
+    pathB = "D:\\ppadayac\\PraChin\\B"
+    i = 1
+    
+    for files in list_nse50:
+            for file in files:                
+                if str(file) != 'nan' :
+                    #os.rename(os.path.join(pathA, file), os.path.join(pathB, file))
+                    print(file)
+    
+    
+if __name__ == "__main__":
+    test_run()

@@ -1,0 +1,27 @@
+import pandas as pd
+import datetime
+import importlib
+import numpy as np
+
+import read_Stock_Data as rd
+importlib.reload(rd)                                                #Reload file to cater for any recent changes in the file
+
+import stock_formulae as frm
+importlib.reload(frm) 
+
+
+
+
+def test_run():
+    ######Reading Data###################
+    df_nse50 = rd.get_list('nse_extract', 'Symbol')                   #Extract list of Top Nse50 Stcoks
+    list_nse50 = df_nse50.index.tolist()                              #Array of Stcok symbols
+    #print(df_nse50.index.unique().tolist())  
+    df_temp = df_nse50[df_nse50['ISIN Code'].str.contains(',')] 
+    print(df_nse50.index.unique().tolist())  
+    print(df_temp)
+    
+    
+    
+if __name__ == "__main__":
+    test_run()
